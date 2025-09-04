@@ -131,7 +131,7 @@ La automatización en Git permite ejecutar tareas repetitivas y controles de cal
 
 ---
 
-# Calidad de código
+## Calidad de código
 
 ---
 
@@ -159,7 +159,43 @@ Seguir una convención en los mensajes de commit ayuda a mantener un historial c
 
 ---
 
-#### Hooks de Git
+### Formato (Conventional Commits)
+
+```
+Cabecera: <type>(<scope>): <subject>
+
+Línea en blanco (opcional)
+
+Cuerpo (opcional)
+
+Línea en blanco (opcional)
+
+Footer/Notas (opcional, p. ej. BREAKING CHANGE, Closes #123)
+```
+
+---
+
+### Qué significa cada campo
+
+- Cabecera (requerida)
+
+  - type: Tipo de cambio — ej. feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert.
+  - scope (opcional): Ámbito afectado entre paréntesis, p. ej. `auth`, `api`, `ui`.
+  - subject: Resumen corto en modo imperativo, minúsculas, sin punto final (ideal < 50 chars).
+
+---
+
+- Cuerpo (opcional): Explica el “qué” y el “por qué” del cambio; detalles, contexto y decisiones.
+
+- Footer / Notas (opcional)
+  - Información tipo `BREAKING CHANGE`.
+  - Referencias a issues/prs: `Closes #123`, `Fixes #45`.
+
+---
+
+## Hooks de Git
+
+---
 
 Los hooks son scripts que se ejecutan automáticamente en determinados momentos del flujo de trabajo de Git.
 
@@ -171,7 +207,7 @@ La integración de linters y tests automáticos en los hooks ayuda a garantizar 
 
 ---
 
-# Automatización con CI/CD
+## Automatización
 
 ---
 

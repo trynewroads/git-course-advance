@@ -9,10 +9,10 @@ color: #ffffff;
 footer: Git Avanzado
 header: |
   <div class="logo-start">
-    <img src="img/git-logo-white.png" alt="Logo Git"  class="logo"/>
+    <img src="../../img/git-logo-white.png" alt="Logo Git"  class="logo"/>
   </div>
   <div class="logo-end">
-    <img src="img/logo_white.png" alt="Logo TNR" class="logo" />
+    <img src="../../img/logo_white.png" alt="Logo TNR" class="logo" />
   </div>
 
 style: |
@@ -105,6 +105,15 @@ style: |
   code {
     background-color: rgb(255 255 255 / 30%);
   }
+
+  .col-container{
+    display:flex;
+    gap: 2rem;
+  }
+
+  .col-container > .col {
+    flex: 1
+  }
 ---
 
   <!-- _paginate: skip -->
@@ -117,3 +126,118 @@ style: |
   </div>
 
 ---
+
+<div class="col-container">
+  <div class="col">
+
+```
+// bad.js
+const fs = require("fs");
+function readFile(path) {
+const data = fs.readFileSync(path, "utf8");
+console.log(data);
+return data;
+}
+readFile("./file.txt");
+```
+
+  </div>
+  <div class="col">
+
+```js
+// good.js
+const fs = require("fs");
+function readFile(path) {
+  let data = fs.readFileSync(path, "utf8");
+  console.log(data);
+  return data;
+}
+readFile("./file.txt");
+```
+
+  </div>
+</div>
+
+---
+
+<div class="col-container">
+  <div class="col">
+
+```python
+# bad.py
+import os,sys
+def read_file(path, encoding='utf8'):
+  data = open(path, 'r', encoding=encoding).read()
+  print(data)
+  return data
+def count_lines(path):
+    with open(path,'r') as f:
+       return len(f.readlines())
+print(read_file('./file.txt')) ; print(count_lines('./file.txt'))
+```
+
+  </div>
+  <div class="col">
+
+```python
+# good.py
+import sys
+from pathlib import Path
+
+
+def read_file(path: str, encoding: str = "utf8") -> str:
+    data = Path(path).read_text(encoding=encoding)
+    print(data)
+    return data
+
+
+def count_lines(path: str) -> int:
+    with open(path, "r", encoding="utf8") as f:
+        return len(f.readlines())
+
+
+if __name__ == "__main__":
+    print(read_file("./file.txt"))
+    print(count_lines("./file.txt"))
+```
+
+  </div>
+</div>
+
+---
+
+```
+feat(fw): añadir función read_file con manejo de encoding
+- Añade read_file() usando pathlib y typing.
+- Mejora la lectura de ficheros y la tipificación.
+```
+
+```
+fix(io): corregir lectura de ficheros con encoding
+- Evita errores al abrir archivos sin especificar encoding.
+- Usa Path.read_text() y cierra correctamente ficheros.
+```
+
+```
+docs: documentar convención de commits en CONTRIBUTING.md
+- Añade ejemplos de Conventional Commits y cómo usar commitlint.
+- Incluye sección sobre reescribir commits (amend/rebase).
+```
+
+---
+
+```
+feat(api): añadir endpoint /users
+
+Añade paginación y validaciones de entrada.
+
+Closes #42
+```
+
+```
+feat(auth): cambiar token handling
+
+Se modifica el formato del token para mejorar seguridad.
+
+BREAKING CHANGE: el token ahora incluye timestamp, requiere migración.
+```
