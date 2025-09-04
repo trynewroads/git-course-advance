@@ -110,15 +110,11 @@ style: |
   <!-- _paginate: skip -->
 
   <div class="front">
-    <h1 class="title"> Git Avanzado </h1>
+    <h1 class="title"> Automatización, calidad de código y hooks </h1>
     <hr class="line"/>
     <p class="author">Arturo Silvelo</p>
     <p class="company">Try New Roads</p>
   </div>
-
----
-
-# Automatización, calidad de código y hooks
 
 ---
 
@@ -135,7 +131,7 @@ La automatización en Git permite ejecutar tareas repetitivas y controles de cal
 
 ---
 
-# Automatización de calidad de código
+# Calidad de código
 
 ---
 
@@ -147,10 +143,12 @@ Los linters analizan el código fuente para detectar errores de sintaxis, estilo
 
 - ESLint (JavaScript/TypeScript)
 - Prettier (formateo automático)
+- Flake8 (Python)
+- Checkstyle (Java)
 
 ---
 
-#### Convenciones de commits
+#### Convetional Commits
 
 Seguir una convención en los mensajes de commit ayuda a mantener un historial claro y facilita la automatización de procesos como generación de changelogs y versionado semántico.
 
@@ -199,3 +197,15 @@ CI/CD (Integración Continua y Entrega/Despliegue Continua) es una práctica que
 
 - Ejecutar linters y tests en cada push.
 - Desplegar automáticamente en producción tras aprobar un Pull Request.
+
+---
+
+## Casos de uso CI/CD
+
+En los pipelines CI/CD se pueden automatizar muchas tareas que mejoran la calidad y aceleran la entrega de software. A continuación, casos de uso comunes que conviene conocer:
+
+- Generación automática de release
+- Despliegues
+- Tests automatizados
+- Calidad y seguridad
+- Publicación de artefactos
