@@ -203,3 +203,36 @@ Solo dos ramas principales: producción y ramas de trabajo.
 **Desventajas:**
 
 - No contempla ciclos de lanzamiento complejos.
+
+---
+
+# Protección de ramas
+
+---
+
+## ¿Qué es la protección de ramas?
+
+La protección de ramas es una funcionalidad que permite establecer reglas para evitar cambios no deseados en ramas críticas del repositorio (por ejemplo, `main` o `develop`).  
+Su objetivo es asegurar la calidad del código y evitar errores accidentales.
+
+---
+
+## ¿Para qué sirve la protección de ramas?
+
+- Evitar cambios directos en ramas importantes.
+- Obligar a que los cambios pasen por revisiones y Pull Requests.
+- Garantizar que el código fusionado cumple con los estándares del equipo.
+- Proteger el historial y la integridad del proyecto.
+
+---
+
+## ¿Qué opciones existen?
+
+- **Pull Request obligatorio:** Solo se puede fusionar código mediante Pull Request.
+- **Revisiones obligatorias:** Uno o varios revisores deben aprobar los cambios antes del merge.
+- **Checks automáticos:** Exigir que pasen tests, linters o builds antes de permitir el merge.
+- **Restricción de pushes:** Limitar quién puede hacer push o aprobar cambios.
+- **Bloqueo de force-push y borrado:** Impedir el force-push y el borrado de ramas protegidas.
+- **Requerir actualizaciones:** Obligar a que la rama esté actualizada con la principal antes de fusionar.
+
+---
