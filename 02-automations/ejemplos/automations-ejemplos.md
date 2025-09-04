@@ -241,3 +241,17 @@ Se modifica el formato del token para mejorar seguridad.
 
 BREAKING CHANGE: el token ahora incluye timestamp, requiere migración.
 ```
+
+---
+
+```sh
+#.git/hooks/commit-msg
+npx --no-install commitlint --edit "$1"
+```
+
+```sh
+#!/usr/bin/env bash
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no-install commitlint --edit "$1"
+```
