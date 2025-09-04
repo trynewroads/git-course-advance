@@ -106,6 +106,7 @@ style: |
   .col-container > div > img {
     max-width: 250px;
     height: auto;
+    max-height: 420px;
   }
 
   a{
@@ -147,13 +148,48 @@ style: |
         <img src="../../img/workflow-trunk.png" alt="Trunk Based Development"/>
     </div>
   <div class="col">
-    <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20branch%20feature1%3Bgit%20checkout%20feature1%3Bgit%20commit%3Bgit%20commit%3Bgit%20checkout%20main%3Bgit%20branch%20feature2%3Bgit%20checkout%20feature2%3Bgit%20commit%3Bgit%20commit%3Bgit%20commit%3Bgit%20checkout%20main%3Bgit%20merge%20feature1%3Bgit%20branch%20feature3%3Bgit%20checkout%20feature3%3Bgit%20commit%3Bgit%20commit%3Bgit%20checkout%20feature2%3Bgit%20commit%3Bgit%20checkout%20main%3Bgit%20merge%20feature2%3Bgit%20checkout%20feature3%3Bgit%20merge%20feature3%3Bgit%20commit%3Bgit%20checkout%20main%3Bgit%20merge%20feature3&locale=es_ES">Ver diagrama en LearnGitBranching</a>
+    <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20switch%20-c%20f%2Fsearch%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20-c%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20f%2Fsearch%3Bgit%20switch%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20f%2Flogin&locale=es_ES">Ver diagrama en LearnGitBranching</a>
     <br><br>
     <p> En este diagrama se observa cómo varios desarrolladores crean ramas de características (<code>feature1</code>, <code>feature2</code>, <code>feature3</code>) desde la rama principal (<code>main</code>).         Cada rama contiene varios commits y se desarrollan en paralelo. Cuando las funcionalidades están listas, se fusionan rápidamente a <code>main</code>, manteniendo el código siempre actualizado y listo para producción.
     
   </div>
 </div>
 
+---
+
+<div class="col-container">
+    <div class="col">    
+        <pre><code>
+        git switch -c feature1
+        git commit
+        git commit
+        git switch main
+        git switch -c feature2
+        git commit
+        git commit
+        git commit
+        git switch main
+        git merge feature1
+        git switch -c feature3
+        </code></pre>
+    </div>
+    <div class="col">    
+        <pre><code>
+        git commit
+        git commit
+        git switch feature2
+        git commit
+        git switch main
+        git merge feature2
+        git switch feature3
+        git merge feature3
+        git commit
+        git switch main
+        git merge feature3
+        </code></pre>
+    </div>
+</div>
+    
 ---
 
 ## Feature Branch Workflow
@@ -163,7 +199,7 @@ style: |
         <img src="../../img/workflow-branch.png" alt="Feature Branch Workflow" />
     </div>
     <div class="col">
-        <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20commit%3Bgit%20commit%3Bgit%20branch%20feature%2Flogin%3Bgit%20checkout%20feature%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20checkout%20main%3Bgit%20merge%20feature%2Flogin&locale=es_ES">Ver diagrama en LearnGitBranching</a>
+        <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20switch%20-c%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20f%2Flogin&locale=es_ES">Ver diagrama en LearnGitBranching</a>
         <br><br>
         <p>
         En este diagrama se muestra cómo cada nueva funcionalidad se desarrolla en una rama independiente (<code>login</code>) creada desde la rama principal (<code>main</code>).  
@@ -172,6 +208,16 @@ style: |
         </p>
     </div>
 </div>
+
+---
+
+```
+git switch -c f/login
+git commit
+git commit
+git switch main
+git merge f/login
+```
 
 ---
 
@@ -193,3 +239,40 @@ style: |
 </div>
 
 ---
+
+## Git Flow Workflow
+
+<div class="col-container">
+    <div>
+        <img src="../../img/workflow-gitflow.png" alt="Git Flow Workflow" />
+    </div>
+    <div class="col">
+        <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20switch%20-c%20develop%3Bgit%20switch%20-c%20f%2Flogin%3Bgit%20commit%3Bgit%20switch%20develop%3Bgit%20switch%20-c%20f%2Fsearch%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20develop%3Bgit%20merge%20f%2Flogin%3Bgit%20switch%20-c%20r%2F1.0%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20r%2F1.0%3Bgit%20switch%20-c%20h%2Furgent%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20h%2Furgent%3Bgit%20switch%20develop%3Bgit%20merge%20h%2Furgent&locale=es_ES">Ver diagrama en LearnGitBranching</a>
+        <br><br>
+        <p>
+        En este diagrama se observa el flujo clásico de <strong>Git Flow</strong>:  
+        Se crea una rama <code>develop</code> para integrar nuevas funcionalidades.  
+        Las ramas de características (<code>f/login</code>, <code>f/search</code>) se desarrollan desde <code>develop</code> y se fusionan de vuelta.  
+        Cuando se prepara un lanzamiento, se crea una rama <code>r/1.0</code> desde <code>develop</code> y se fusiona a <code>main</code>.  
+        Las correcciones urgentes (<code>h/urgent</code>) se desarrollan desde <code>main</code> y se fusionan tanto a <code>main</code> como a <code>develop</code>.
+        </p>
+    </div>
+
+---
+
+## GitHub Flow
+
+<div class="col-container">
+    <div>
+        <img src="../../img/workflow-github-flow.png" alt="GitHub Flow" />
+    </div>
+    <div class="col">
+        <a href="https://learngitbranching.js.org/?NODEMO=&command=git%20branch%20f%2Flogin%3Bgit%20switch%20-c%20f%2Fsearch%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20f%2Fsearch%3Bgit%20switch%20f%2Flogin%3Bgit%20commit%3Bgit%20commit%3Bgit%20switch%20main%3Bgit%20merge%20f%2Flogin&locale=es_ES">Ver diagrama en LearnGitBranching</a>
+        <br><br>
+        <p>
+        En este diagrama se muestra el flujo <strong>GitHub Flow</strong>:  
+        Cada nueva funcionalidad o corrección se desarrolla en una rama corta (<code>f/search</code>, <code>f/login</code>) creada desde <code>main</code>.  
+        Cuando los cambios están listos, se integran a <code>main</code> mediante un Pull Request, permitiendo revisiones y despliegues frecuentes.  
+        Este workflow es ideal para integración y entrega continua.
+        </p>
+    </div>
