@@ -373,21 +373,90 @@ credentials.json
 
 ---
 
-## Objetos internos de Git
+## Estructura interna de Git
 
-Git almacena 4 tipos principales de objetos:
-
-1. **Blob** – Contenido de un archivo.
-2. **Tree** – Directorio que apunta a blobs y subtrees.
-3. **Commit** – Apunta a un tree, tiene metadata (autor, mensaje, padres).
-4. **Tag** – Objeto que referencia un commit, opcionalmente firmado.
+- Cada repositorio Git tiene un directorio oculto .git en la raíz.
+- Contiene toda la información necesaria para versionar el proyecto: commits, ramas, configuraciones, hooks, etc.
+- Si borras .git, pierdes el historial, pero los archivos de trabajo permanecen.
 
 ---
 
-## DAG de commits
+| Elemento   | Función                                                                |
+| ---------- | ---------------------------------------------------------------------- |
+| `HEAD`     | Apunta al commit actual o a la rama activa                             |
+| `config`   | Configuración local del repositorio                                    |
+| `hooks/`   | Scripts que se ejecutan en eventos de Git (pre-commit, pre-push, etc.) |
+| `objects/` | Contiene todos los **objetos de Git** (blobs, trees, commits, tags)    |
+| `refs/`    | Contiene referencias a ramas (`heads`) y tags (`tags`)                 |
+| `logs/`    | Reflog: historial de movimientos de HEAD y ramas                       |
+| `info/`    | Archivos de configuración interna, como `.exclude`                     |
 
-- Cada commit apunta a uno o varios commits padres.
-- Forma un grafo acíclico dirigido (DAG).
+---
+
+### Objects
+
+- Cada commit es un objeto en .git/objects con un SHA único.
+- Los almacena de manera comprimida y codificada
+- Contiene:
+  - Referencia al árbol
+  - Commit padre
+  - Autor y fecha
+  - Mensaje
+
+---
+
+#### Tipos de Objetos
+
+- Blob → contenido de archivo
+- Tree → lista de archivos y subdirectorios, apunta a blobs y otros trees
+- Commit → apunta a un tree y a sus padres
+
+---
+
+- Contenido de un commit
+
+  ```bash
+  $git cat-file -p 2e06f2b8448649f16a3e82660cb57616a457cedd
+  tree 181cb51532a71991e1154b40b56e3b575b8d8e18
+  author Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
+  committer Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
+
+  Commit A: archivo1.txt
+  ```
+
+- Contenido de un tree
+
+  ```bash
+  $git cat-file -p 181cb51532a71991e1154b40b56e3b575b8d8e18
+  100644 blob 0152d71fe5e5653f52e8772031fb073a2aa113ac	archivo1.txt
+  ```
+
+- Contenido de un blob
+
+  ```bash
+  $git cat-file -p 0152d71fe5e5653f52e8772031fb073a2aa113ac
+  Hola Git
+  ```
+
+---
+
+### Ramas y referencias
+
+Las ramas son simplemente archivos de texto en .git/refs/heads/ que contienen el SHA del último commit de esa rama.
+
+```bash
+$ls .git/refs/heads/
+feature  main
+```
+
+```bash
+$cat .git/refs/heads/feature
+f88435db6de38b34a264c7fc25a771ae54e934ee
+```
+
+Tags funcionan de manera similar en .git/refs/tags/
+
+---
 
 ---
 
