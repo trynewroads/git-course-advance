@@ -458,6 +458,51 @@ Tags funcionan de manera similar en .git/refs/tags/
 
 ---
 
+### Logs
+
+La carpeta .git/logs/ contiene los registros de movimientos de las referencias en tu repositorio, principalmente el reflog.
+
+Historial completo de todos los movimientos de HEAD
+
+```bash
+$cat .git/logs/HEAD
+# ó
+$git reflog
+ce455ac (HEAD -> main, tag: v0.1) HEAD@{0}: merge feature: Merge made by the 'ort' strategy.
+a57fb6f HEAD@{1}: commit: Commit D: cambio en main
+73fb1ea HEAD@{2}: checkout: moving from feature to main
+f88435d (feature) HEAD@{3}: commit: Commit C: feature.txt
+73fb1ea HEAD@{4}: checkout: moving from main to feature
+73fb1ea HEAD@{5}: commit: Commit B: archivo2.txt
+2e06f2b HEAD@{6}: commit (initial): Commit A: archivo1.txt
+```
+
+---
+
+### index
+
+staging area, donde Git guarda la información de los archivos que se van a commitear.
+
+```bash
+git ls-files --stage
+```
+
+---
+
+### config
+
+Configuración local del repositorio
+
+```bash
+git config --local user.name Teacher
+```
+
+```bash
+cat .git/config
+[user]
+	name = Teacher
+```
+
 ---
 
 # Conventional Commits
