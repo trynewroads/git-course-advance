@@ -105,6 +105,46 @@ style: |
   code {
     background-color: rgb(255 255 255 / 30%);
   }
+
+
+  .container-column  {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+  }
+
+  .small {
+    font-size: 16px;
+  }
+
+  figure{
+    display: block;    
+  }
+
+  figcaption{
+    padding: 2px;
+    text-align: center;
+    font-size: 18px;
+    font-bold: bold;
+  }
+
+  figure img {
+    width: 100%;
+    object-fit: contain;
+  }
+
+
+  table, td, th, tr{
+    background: transparent!important;
+  }
+
+  th {
+   font-size: 26px;
+  }
+
+  td {
+    font-size: 20px;
+  }
 ---
 
   <!-- _paginate: skip -->
