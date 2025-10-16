@@ -597,6 +597,12 @@ Esto:
   git stash save "Mensaje"
   ```
 
+- Archivo especifico
+
+  ```bash
+  git stash push archivo.txt
+  ```
+
 - Recuperar
 
   ```bash
