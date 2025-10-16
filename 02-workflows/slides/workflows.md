@@ -1,18 +1,18 @@
 ---
 marp: true
 theme: default
-title: Git Avanzado
+title: Branches y Workflows
 paginate: true
 size: 16:9
 backgroundColor: #2E2052;
 color: #ffffff;
-footer: Git Avanzado
+footer: Branches y Workflows
 header: |
   <div class="logo-start">
-    <img src="img/git-logo-white.png" alt="Logo Git"  class="logo"/>
+    <img src="../../img/git-logo-white.png" alt="Logo Git"  class="logo"/>
   </div>
   <div class="logo-end">
-    <img src="img/logo_white.png" alt="Logo TNR" class="logo" />
+    <img src="../../img/logo_white.png" alt="Logo TNR" class="logo" />
   </div>
 
 style: |
@@ -118,7 +118,11 @@ style: |
   }
 
   figure{
-    display: block;    
+    max-height: 75%;
+    height: auto;
+    display: flex;
+    flex: 1 0 auto;
+    max-width: 100%;
   }
 
   figcaption{
@@ -133,6 +137,9 @@ style: |
     object-fit: contain;
   }
 
+  table {
+    margin: auto;
+  }
 
   table, td, th, tr{
     background: transparent!important;
@@ -150,7 +157,7 @@ style: |
   <!-- _paginate: skip -->
 
   <div class="front">
-    <h1 class="title"> Git Avanzado </h1>
+    <h1 class="title"> Branches y Workflows </h1>
     <hr class="line"/>
     <p class="author">Arturo Silvelo</p>
     <p class="company">Try New Roads</p>
