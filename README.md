@@ -25,7 +25,7 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 ---
 
-## Módulo 2: Branching y Workflows (resumen rápido + tips avanzados)
+## Módulo 2: Branching y Workflows
 
 **Objetivo:** Reforzar lo básico de ramas y workflows, con enfoque en buenas prácticas y colaboración en GitHub.
 
@@ -33,6 +33,7 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 - Git Flow, GitHub Flow y Trunk Based Development (resumen rápido).
 - Naming conventions y ramas protegidas en GitHub.
+- **Conventional Commits:** estándar de commits y ventajas.
 - Pull Requests: revisión, estrategias de merge (squash, rebase, merge commit) y prevención de conflictos.
 - Integración con GitHub Projects: issues, milestones, tableros y automatizaciones.
 
@@ -70,7 +71,6 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 **Temas:**
 
-- **Conventional Commits:** estándar de commits y ventajas.
 - **Commitlint:** validación automática de commits, integración con hooks y workflows.
 - **Husky y hooks locales:** pre-commit, pre-push, integración con linters y tests automáticos.
 - Workflows, jobs y runners en GitHub Actions.
