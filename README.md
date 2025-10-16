@@ -17,9 +17,6 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 - Configuración avanzada de Git y aliases.
 - Gestión de credenciales y seguridad (SSH, tokens).
 - Internals de Git: objetos, DAG, stash y reflog.
-- **Conventional Commits:** estándar de commits y ventajas.
-- **Commitlint:** validación automática de commits, integración con hooks y workflows.
-- **Husky y hooks locales:** pre-commit, pre-push, integración con linters y tests automáticos.
 
 **Ejercicios sugeridos:**
 
@@ -74,6 +71,9 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 **Temas:**
 
+- **Conventional Commits:** estándar de commits y ventajas.
+- **Commitlint:** validación automática de commits, integración con hooks y workflows.
+- **Husky y hooks locales:** pre-commit, pre-push, integración con linters y tests automáticos.
 - Workflows, jobs y runners en GitHub Actions.
 - Automatización de tests, linting y builds.
 - Validación de pull requests y checks obligatorios.

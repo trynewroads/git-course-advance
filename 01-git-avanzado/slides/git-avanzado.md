@@ -118,7 +118,11 @@ style: |
   }
 
   figure{
-    display: block;    
+    max-height: 75%;
+    height: auto;
+    display: flex;
+    flex: 1 0 auto;
+    max-width: 100%;
   }
 
   figcaption{
@@ -133,6 +137,9 @@ style: |
     object-fit: contain;
   }
 
+  table {
+    margin: auto;
+  }
 
   table, td, th, tr{
     background: transparent!important;
@@ -187,6 +194,12 @@ Git no solo guarda tu código, también registra información sobre **quién hiz
 
 Git tiene **tres niveles** de configuración:
 
+<figure>
+    <img src="../../img/gitconfig_hierarchy.svg" alt="Git Config Hierarchy">
+</figure>
+
+---
+
 1. **System (sistema)**
 
    - Aplica a **todos los usuarios y repositorios** en el equipo.
@@ -239,15 +252,35 @@ Git tiene **tres niveles** de configuración:
 
 ---
 
-**Prioridad de configuración:** Local > Global > System
+## Alias
 
-- **System**: políticas de la organización y todos los usuarios
-- **Global**: preferencias y identidad del usuario
-- **Local**: reglas específicas de un proyecto
+Un **alias** en Git es una forma de crear comandos abreviados o personalizados para tareas frecuentes.
+
+- Permite ahorrar tiempo y evitar errores de tipeo.
+- Se definen en la configuración global o local.
+- Pueden ser simples (un comando) o complejos (comandos encadenados).
 
 ---
 
-# Gestión de credencial y seguridad
+## Ejemplo de alias avanzado
+
+Puedes crear alias que incluyan opciones o comandos complejos:
+
+```bash
+git config --global alias.lg "log --oneline --decorate --graph --all"
+```
+
+Ahora puedes ejecutar:
+
+```bash
+git lg
+```
+
+para ver un historial visual de todas las ramas.
+
+---
+
+# Gestión de credenciales y seguridad
 
 ---
 
@@ -383,7 +416,7 @@ credentials.json
 
 | Elemento   | Función                                                                |
 | ---------- | ---------------------------------------------------------------------- |
-| `HEAD`     | Apunta al commit actual o a la rama activa                             |
+| `HEAD`     | activa                                                                 |
 | `config`   | Configuración local del repositorio                                    |
 | `hooks/`   | Scripts que se ejecutan en eventos de Git (pre-commit, pre-push, etc.) |
 | `objects/` | Contiene todos los **objetos de Git** (blobs, trees, commits, tags)    |
@@ -416,7 +449,7 @@ credentials.json
 - Contenido de un commit
 
   ```bash
-  $git cat-file -p 2e06f2b8448649f16a3e82660cb57616a457cedd
+  git cat-file -p 2e06f2b8448649f16a3e82660cb57616a457cedd
   tree 181cb51532a71991e1154b40b56e3b575b8d8e18
   author Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
   committer Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
@@ -427,14 +460,14 @@ credentials.json
 - Contenido de un tree
 
   ```bash
-  $git cat-file -p 181cb51532a71991e1154b40b56e3b575b8d8e18
+  git cat-file -p 181cb51532a71991e1154b40b56e3b575b8d8e18
   100644 blob 0152d71fe5e5653f52e8772031fb073a2aa113ac	archivo1.txt
   ```
 
 - Contenido de un blob
 
   ```bash
-  $git cat-file -p 0152d71fe5e5653f52e8772031fb073a2aa113ac
+  git cat-file -p 0152d71fe5e5653f52e8772031fb073a2aa113ac
   Hola Git
   ```
 
@@ -445,16 +478,21 @@ credentials.json
 Las ramas son simplemente archivos de texto en .git/refs/heads/ que contienen el SHA del último commit de esa rama.
 
 ```bash
-$ls .git/refs/heads/
+ls .git/refs/heads/
 feature  main
 ```
 
 ```bash
-$cat .git/refs/heads/feature
+cat .git/refs/heads/feature
 f88435db6de38b34a264c7fc25a771ae54e934ee
 ```
 
 Tags funcionan de manera similar en .git/refs/tags/
+
+```bash
+cat .git/refs/tags/v0.1
+53fc9ec5c5dafb7a28753e9b0ddea49f4f2f326d
+```
 
 ---
 
@@ -479,16 +517,6 @@ f88435d (feature) HEAD@{3}: commit: Commit C: feature.txt
 
 ---
 
-### index
-
-staging area, donde Git guarda la información de los archivos que se van a commitear.
-
-```bash
-git ls-files --stage
-```
-
----
-
 ### config
 
 Configuración local del repositorio
@@ -505,14 +533,186 @@ cat .git/config
 
 ---
 
-# Conventional Commits
+### Archivos temporales
+
+- **COMMIT_EDITMSG**:  
+  Guarda el mensaje del commit actual mientras se edita.  
+  Útil para hooks o para recuperar el mensaje si falla el commit.
+
+  ```bash
+  cat .git/COMMIT_EDITMSG
+  ```
+
+- **MERGE_MSG**:  
+  Se crea durante un merge para guardar el mensaje por defecto del merge.
 
 ---
 
-# Commitlint y Husky
+## Stash
 
 ---
 
+### stash
+
+Es una funcionalidad de Git que permite guardar temporalmente los cambios no confirmados (tanto en el área de trabajo como en el stage) sin necesidad de hacer un commit.
+
+- Es útil cuando necesitas cambiar de rama o actualizar tu repositorio, pero no quieres perder ni comprometer tus cambios actuales.
+- Los cambios guardados en el stash se almacenan como objetos especiales en `.git/refs/stash` y pueden recuperarse más tarde.
+
+---
+
+Para guardar tus cambios actuales en el stash, simplemente ejecuta:
+
+```bash
+git stash
 ```
 
+```bash
+cat .git/refs/stash
+2b066d788c3eadc50742f07bf0e25a068f92547b
 ```
+
+Esto:
+
+- Guarda todos los cambios no confirmados y limpia tu directorio de trabajo.
+- Puedes continuar trabajando, cambiar de rama o actualizar tu repo sin perder esos cambios.
+
+---
+
+### Trabajar con stash
+
+<div class=container-column>
+<div class=small>
+
+- Listar
+
+  ```bash
+  git stash list
+  stash@{0}: WIP on main: ce455ac Merge branch 'feature'
+  ```
+
+- Crear con mensage
+
+  ```bash
+  git stash save "Mensaje"
+  ```
+
+- Recuperar
+
+  ```bash
+  git stash apply # Último
+  git stash apply stash@{0} # Especifico
+  ```
+
+</div>
+<div class=small>
+
+- Recuperar y elminar
+
+  ```
+  git stash pop
+  ```
+
+- Eliminar
+
+  ```bash
+  git stash clear # Todos
+  git stash drop stash@{0} # Especifico
+  ```
+
+- Ver el contenido
+
+  ```bash
+  git stash show -p stash@{0}
+  ```
+
+</div>
+</div>
+
+---
+
+## Reflog
+
+---
+
+### Reflog
+
+Es un registro interno donde Git guarda todos los movimientos recientes de las referencias importantes, especialmente `HEAD` y las ramas.
+
+- Permite rastrear y recuperar cambios recientes, incluso si se han perdido ramas o commits por error.
+- Es fundamental para la recuperación de trabajo perdido tras un reset, rebase, merge o eliminación accidental.
+
+---
+
+### ¿Para qué sirve el reflog?
+
+- **Recuperar commits o ramas borradas accidentalmente.**
+- Volver a un estado anterior tras un reset, rebase o merge problemático.
+- Auditar el historial de cambios recientes, incluso si no aparecen en `git log`.
+
+---
+
+### Ejemplo práctico: Recuperar un commit perdido
+
+<div class=container-column>
+<div class=small>
+
+- Crear nueva rama
+
+  ```bash
+  git switch -c feature-delete
+  ```
+
+- Crear varios commits
+
+  ```bash
+  touch f.txt
+  git add .
+  git commit -m 'Commit F: f.txt'
+  echo "Hola mundo" > f.txt
+  git commit -am "Commit F: add content"
+  ```
+
+- Borrar rama
+
+  ```bash
+  git switch main
+  git branch -D feature-delete
+  ```
+
+</div>
+<div class=small>
+
+- Buscar los reflog
+
+  ```bash
+  git reflog
+  ```
+
+- Recuperar la rama
+
+  ```bash
+  git checkout -b rama-recuperada HEAD@{1}
+  ```
+
+- Comprobar
+
+  ```bash
+  git switch rama-recuperada
+  git log
+  ```
+
+</div>
+</div>
+
+---
+
+### Gestión y limpieza del reflog
+
+- El reflog se limpia automáticamente tras un periodo (por defecto, 90 días).
+- Puedes forzar la limpieza con:
+
+  ```bash
+  git reflog expire --expire=now --all
+  git gc --prune=now
+  ```
