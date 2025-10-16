@@ -169,6 +169,18 @@ style: |
 
 ---
 
+## Workflows
+
+Un **workflow** en Git define cómo un equipo organiza, desarrolla, integra y despliega el código utilizando ramas y reglas de colaboración.
+
+Elegir el workflow adecuado es clave para:
+
+- Mejorar la colaboración y la calidad del código.
+- Adaptarse al tamaño del equipo y la frecuencia de releases.
+- Facilitar la integración continua y el despliegue automatizado.
+
+---
+
 ## Git Flow
 
 Git Flow es un workflow avanzado y estructurado para equipos de desarrollo que necesitan gestionar múltiples versiones, releases y hotfixes de manera ordenada.  
@@ -426,3 +438,69 @@ Las contribuciones se integran mediante Pull Requests revisados por los mantened
 <figure>
   <img src="../../img/fork-schema.svg" class="Fork Flow">
 </figure>
+
+---
+
+# Naming conventions
+
+---
+
+## Naming conventions
+
+Las **naming conventions** son reglas y patrones para nombrar ramas, commits y otros elementos en Git.  
+Su objetivo es facilitar la organización, la colaboración y la comprensión del historial del proyecto.
+
+---
+
+### Ventajas
+
+- Facilita la identificación rápida del propósito de cada rama.
+- Mejora la colaboración y la revisión de código.
+- Permite automatizar flujos de trabajo y políticas en plataformas como GitHub.
+
+---
+
+### Restricción de nombre
+
+- **Minúsculas y guiones:** Usa solo minúsculas y separa las palabras con guiones.
+
+- **Caracteres alfanuméricos:** Utiliza solo letras (a-z), números (0-9) y guiones. Evita espacios, guiones bajos, tildes o caracteres especiales.
+
+- **Sin guiones continuos:** No uses guiones dobles o múltiples seguidos.
+
+- **Sin guiones al final:** No termines el nombre de la rama con un guion.
+
+- **Descriptivo y conciso:** El nombre debe describir claramente el propósito de la rama, de forma breve y entendible.
+
+---
+
+### Prefijos Ramas
+
+Usar prefijos en los nombres de las ramas ayuda a identificar rápidamente su propósito.
+
+- **Feature Branches:** Para desarrollar nuevas funcionalidades.
+  `feature/`
+
+- **Bugfix Branches:** Para corregir errores en el código. `bugfix/`
+
+---
+
+- **Hotfix Branches:** Para solucionar bugs críticos directamente en producción. `hotfix/`
+
+- **Release Branches:** Para preparar una nueva versión de producción. `release/`
+
+- **Documentation Branches:** Para escribir o actualizar documentación. `docs/`
+
+---
+
+### Incluir tickets o issues en el nombre de las ramas
+
+Una buena práctica es incluir el identificador del ticket o issue relacionado en el nombre de la rama.  
+Esto facilita la trazabilidad entre el código y las tareas del sistema de gestión de incidencias (Jira, GitHub Issues, etc.).
+
+**Ejemplos:**
+
+- `feature/123-login-system`
+- `feature/issue-123-login-system`
+
+---
