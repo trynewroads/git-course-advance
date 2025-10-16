@@ -20,8 +20,7 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 **Ejercicios sugeridos:**
 
-- Configurar un repositorio con Conventional Commits y Commitlint.
-- Crear aliases útiles y hooks de pre-commit para linting.
+- Crear aliases útiles
 - Explorar reflog y stash con ejemplos prácticos.
 
 ---
