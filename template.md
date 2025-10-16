@@ -118,7 +118,11 @@ style: |
   }
 
   figure{
-    display: block;    
+    max-height: 75%;
+    height: auto;
+    display: flex;
+    flex: 1 0 auto;
+    max-width: 100%;
   }
 
   figcaption{
@@ -133,6 +137,9 @@ style: |
     object-fit: contain;
   }
 
+  table {
+    margin: auto;
+  }
 
   table, td, th, tr{
     background: transparent!important;
