@@ -33,7 +33,6 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 
 - Git Flow, GitHub Flow y Trunk Based Development (resumen rápido).
 - Naming conventions y ramas protegidas en GitHub.
-- **Conventional Commits:** estándar de commits y ventajas.
 - Pull Requests: revisión, estrategias de merge (squash, rebase, merge commit) y prevención de conflictos.
 - Integración con GitHub Projects: issues, milestones, tableros y automatizaciones.
 
