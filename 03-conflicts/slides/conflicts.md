@@ -164,3 +164,74 @@ style: |
   </div>
 
 ---
+
+## Conflictos
+
+---
+
+### Conflictos
+
+Un **conflicto** ocurre cuando Git no puede fusionar automáticamente los cambios realizados en diferentes ramas o commits, porque afectan a las mismas líneas de un archivo o a archivos eliminados/modificados en paralelo.
+
+---
+
+### Situaciones comunes que generan conflictos
+
+- **Edición concurrente:**  
+  Dos o más personas modifican las mismas líneas de un archivo en ramas diferentes.
+
+- **Eliminación y modificación:**  
+  Un archivo se elimina en una rama y se modifica en otra.
+
+- **Renombrado de archivos:**  
+  Un archivo se renombra en una rama y se edita en otra.
+
+---
+
+- **Rebase o cherry-pick:**  
+  Al reescribir el historial, pueden surgir conflictos si los cambios ya existen en otra rama.
+
+- **Fusión de ramas antiguas:**  
+  Cuanto más tiempo pasa sin fusionar ramas, mayor es la probabilidad de conflictos.
+
+---
+
+### Cómo prevenir conflictos en Git
+
+- **Comunicación constante:**  
+  Habla con tu equipo sobre los archivos en los que estás trabajando para evitar solapamientos.
+
+- **Fusiones frecuentes:**  
+  Integra los cambios de la rama principal (`main` o `develop`) en tu rama de trabajo de forma regular para minimizar diferencias.
+
+- **Pequeños commits y ramas cortas:**  
+  Trabaja en ramas de vida corta y realiza commits pequeños y frecuentes para facilitar la integración.
+
+---
+
+- **Evita cambios masivos:**  
+  No hagas refactors grandes o cambios estructurales sin avisar al equipo.
+
+- **Herramientas de bloqueo:**  
+  Usa mecanismos de bloqueo o advertencia en archivos críticos (por ejemplo, archivos binarios o de configuración global).
+
+---
+
+### ¿Cómo se identifica un conflicto en Git?
+
+- Al intentar hacer un `merge`, `rebase` o `cherry-pick`, Git detiene la operación y muestra un mensaje de conflicto.
+- Los archivos afectados aparecen como “Unmerged” en `git status`.
+
+<figure>
+  <img src="../../img/git_status_unmerge.png" height="320px" alt="Status Unmerge">
+</figure>
+
+---
+
+- Git inserta marcas especiales en los archivos conflictivos para señalar las diferencias
+
+<figure>
+  <img src="../../img/conflict_file.png" height="225px" alt="Conflict File">
+</figure>
+
+- Debes editar manualmente los archivos para resolver el conflicto, eliminar las marcas y decidir qué cambios conservar.
