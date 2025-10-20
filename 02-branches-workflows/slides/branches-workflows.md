@@ -685,3 +685,19 @@ Proporciona una visualización de alto nivel del proyecto en un intervalo de tie
 
 - **Sprint/Iteración:**  
   Permite agrupar elementos por ciclos de trabajo o entregas.
+
+---
+
+### Workflows/Automatizaciones
+
+Los **workflows** y **automatizaciones** permiten definir reglas y acciones automáticas que gestionan el movimiento y el estado de issues y Pull Requests dentro de un proyecto.  
+Ayudan a mantener el tablero actualizado, reducir tareas manuales y mejorar la eficiencia del equipo.
+
+---
+
+### Ejemplos
+
+- Cuando Pull Request se fusiona correctamente mover a `Done`
+- Cuando un item es cerrado (PR, issue) mover a `Done`
+- Crear ramas automáticamente asociadas a una issue.
+- Asignar responsables o etiquetas según el tipo de tarea o prioridad.
