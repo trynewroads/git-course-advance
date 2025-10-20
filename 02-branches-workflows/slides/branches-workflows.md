@@ -504,3 +504,184 @@ Esto facilita la trazabilidad entre el código y las tareas del sistema de gesti
 - `feature/issue-123-login-system`
 
 ---
+
+# Ramas protegidas
+
+---
+
+## Ramas protegidas
+
+Las **ramas protegidas** es una funcionalidad que permite establecer reglas y restricciones sobre ramas críticas (como `main` o `develop`) para mejorar la seguridad y la calidad del código.
+
+---
+
+### ¿Qué se puede proteger?
+
+- Requerir revisiones de Pull Request antes de hacer merge.
+
+  En un equipo de desarrollo, antes de fusionar una nueva funcionalidad en `main`, se exige que al menos otro desarrollador revise el código y apruebe el Pull Request.
+
+---
+
+- Exigir que los checks de CI/CD pasen antes de permitir el merge.
+
+  Antes de aceptar cambios en `main`, el sistema ejecuta automáticamente tests, linters y builds. Solo si todos los checks pasan, se permite el merge, evitando que código roto llegue a producción.
+
+---
+
+- Restringir quién puede hacer push o borrar la rama.
+
+  Solo los líderes técnicos o el equipo de DevOps pueden hacer push directo a `main` o borrar la rama. Esto protege el código crítico y evita errores accidentales por parte de colaboradores.
+
+---
+
+- Bloquear force-push y borrado accidental.
+
+  Se impide que cualquier usuario sobrescriba el historial de `main` con `git push --force` o elimine la rama por error. Así se mantiene la integridad del historial y se evitan pérdidas de trabajo.
+
+---
+
+- Exigir firmas en los commits.
+
+  En proyectos donde la trazabilidad y la autoría son críticas (por ejemplo, software financiero o sanitario), se exige que todos los commits en `main` estén firmados digitalmente. Esto garantiza la autenticidad y la responsabilidad de cada cambio.
+
+---
+
+### Configuración
+
+En GitHub, **Settings > Branches** y define las reglas para tus ramas principales.
+
+- **Bypass list:**  
+  Lista de usuarios o equipos que pueden omitir (bypass) ciertas reglas de protección, como hacer push directo o fusionar sin cumplir todos los checks.
+
+- **Target branches:**  
+  Especifica a qué ramas se aplican las reglas de protección (por ejemplo, `main`, `develop`, o patrones como `release/*`).
+
+- **Rules:**  
+  Conjunto de restricciones y políticas que se aplican a las ramas seleccionadas.  
+  Ejemplos: requerir revisiones de PR, checks de CI/CD, firmas, etc.
+
+---
+
+# Pull Request
+
+---
+
+## Pull Request
+
+Un **Pull Request (PR)** es una solicitud para fusionar cambios de una rama (feature, bugfix, etc.) a una rama principal (`main`, `develop`, etc.) en plataformas como GitHub.
+
+Permite la revisión colaborativa, la integración controlada y la automatización de validaciones antes de aceptar cambios en el proyecto.
+
+---
+
+### Estrategias de merge en PRs
+
+- **Merge commit:**  
+  Fusiona la rama y crea un commit de merge, preservando el historial completo.
+
+- **Squash merge:**  
+  Combina todos los commits de la rama en uno solo antes de fusionar, dejando el historial más limpio.
+
+- **Rebase and merge:**  
+  Reescribe el historial de la rama para que los commits se añadan de forma lineal sobre la rama destino.
+
+---
+
+### Prevención y resolución de conflictos
+
+- Actualiza la rama feature antes de abrir el PR para minimizar conflictos.
+- Usa revisiones colaborativas para detectar y resolver conflictos de código.
+- Aplica buenas prácticas de comunicación y documentación en los PRs.
+
+---
+
+# Integración con GitHub Projects
+
+---
+
+### ¿Qué es GitHub Projects?
+
+Un **proyecto** es una tabla adaptable, un panel y un plan de desarrollo que se integra con las incidencias y Pull Requests en GitHub para ayudar a planear y realizar el seguimiento del trabajo de forma eficaz, tanto a nivel de usuario como de organización.
+
+Puedes crear y personalizar varias vistas mediante el filtrado, la ordenación, la segmentación y la agrupación de incidencias y solicitudes de cambios para administrar los trabajos pendientes y planes de desarrollo de tu equipo.
+
+---
+
+## Tipo de vistas
+
+---
+
+### Tabla
+
+El diseño de tabla es una hoja de cálculo eficaz y adaptable formada por incidencias, solicitudes de incorporación de cambios y problemas en borrador con metadatos de GitHub y los campos personalizados que ha agregado al proyecto.
+
+<figure>
+  <img src="../../img/example-table.png" height="350px" class="Table View">
+</figure>
+
+---
+
+### Panel
+
+Distribuye las incidencias, las solicitudes de incorporación de cambios y los borradores de incidencias en columnas personalizables
+
+<figure>
+  <img src="../../img/example-board.png" height="380px" class="Board View">
+</figure>
+
+---
+
+### Roadmap
+
+Proporciona una visualización de alto nivel del proyecto en un intervalo de tiempo configurable y permite arrastrar elementos para que afecten a sus fechas de inicio y destino o iteración seleccionada
+
+<figure>
+  <img src="../../img/example-roadmap.png" height="360px" class="Roadmap View">
+</figure>
+
+---
+
+## Elementos
+
+---
+
+- **Issues**
+
+  Elementos que representan tareas, mejoras, bugs, preguntas o cualquier tipo de trabajo a realizar, en progreso o ya resuelto dentro del proyecto.
+
+- **Pull Requests (PRs):**
+
+  Solicitudes de incorporación de cambios que pueden vincularse a issues y reflejan trabajo en curso o revisado.
+
+---
+
+## Campos personalizados
+
+---
+
+- **Etiquetas (Labels):**  
+  Clasifican y agrupan issues y PRs según categorías, estado, prioridad, etc.
+
+- **Fecha Inicio/Fin:**  
+  Permite registrar cuándo comienza y termina una tarea, issue o PR, facilitando la planificación y el seguimiento temporal.
+
+- **Milestones:**  
+  Agrupan issues y PRs bajo un objetivo o entrega común (por ejemplo, una release o sprint).
+
+- **Status:**  
+  Indica el estado actual del elemento (por ejemplo, “To Do”, “In Progress”, “Done”, “Blocked”).
+
+---
+
+- **Prioridad:**  
+  Ayuda a identificar la urgencia o importancia de cada elemento (por ejemplo, “Alta”, “Media”, “Baja”).
+
+- **Responsable (Assignee):**  
+  Muestra quién está encargado de la tarea o revisión.
+
+- **Tipo de tarea:**  
+  Clasifica el elemento como bug, feature, mejora, documentación, etc.
+
+- **Sprint/Iteración:**  
+  Permite agrupar elementos por ciclos de trabajo o entregas.
