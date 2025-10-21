@@ -235,3 +235,201 @@ Un **conflicto** ocurre cuando Git no puede fusionar automáticamente los cambio
 </figure>
 
 - Debes editar manualmente los archivos para resolver el conflicto, eliminar las marcas y decidir qué cambios conservar.
+
+---
+
+### Resolución manual de conflictos
+
+1. Abrir el archivo marcado como conflictivo.
+
+2. Localiza las marcas de conflicto:
+
+<figure>
+  <img src="../../img/conflict_file.png" height="225px" alt="Conflict File">
+</figure>
+
+---
+
+3. Decide qué cambios conservar, elimina las marcas y guarda el archivo.
+
+   ```text
+   Cambio en feature
+   ```
+
+4. Añade el archivo resuelto al stage:
+
+   ```bash
+   git add archivo.txt
+   ```
+
+5. Finaliza el merge o rebase:
+   ```bash
+   git commit
+   # o si es parte de un merge, simplemente:
+   git merge --continue
+   ```
+
+---
+
+### Resolución automática de conflictos
+
+En algunos casos, puedes indicar a Git que resuelva los conflictos priorizando los cambios de una rama sobre otra:
+
+- **Priorizar la rama actual:**
+
+  ```bash
+  git merge -X ours feature
+  ```
+
+  Conserva los cambios de la rama actual en todos los conflictos.
+
+- **Priorizar la rama que se fusiona:**
+  ```bash
+  git merge -X theirs feature
+  ```
+  Conserva los cambios de la rama que se está fusionando.
+
+---
+
+### Herramientas gráficas y editores online
+
+- **Editores locales:**  
+  Herramientas como VS Code permiten visualizar los conflictos, comparar versiones y seleccionar los cambios a conservar de forma intuitiva.
+
+- **Editores online:**  
+  Plataformas como GitHub y GitLab ofrecen editores web para resolver conflictos directamente en la interfaz al fusionar Pull Requests.
+
+---
+
+## Auditoría y depuración en Git
+
+---
+
+### git blame
+
+Es una herramienta de auditoría que muestra, línea por línea, quién fue el autor y en qué commit se modificó cada parte de un archivo.
+
+```
+git blame <archivo>
+```
+
+---
+
+1. Descomprimir el fichero `ejemplo-auditoria.zip`
+2. Ejecuta el test para comprobar el bug
+
+   ```bash
+   python3 test.py
+   2 + 3 =  -1
+   2 * 3 =  6
+   6 / 3 =  2.0
+   ```
+
+---
+
+3. Consulta quién ha modificado cada línea de `calc.py`
+
+   ```
+   git blame calc.py
+   ^3e94666 (Teacher Example 2025-10-21 10:38:41 +0200 1) def suma(a, b):
+   76090567 (Bug Introducer  2025-10-21 10:39:33 +0200 2)     return a - b
+   76090567 (Bug Introducer  2025-10-21 10:39:33 +0200 3)
+   76090567 (Bug Introducer  2025-10-21 10:39:33 +0200 4) def multiplicacion(a, b):
+   76090567 (Bug Introducer  2025-10-21 10:39:33 +0200 5)     return a * b
+   4833ce7a (Colaborator     2025-10-21 10:41:04 +0200 6)
+   4833ce7a (Colaborator     2025-10-21 10:41:04 +0200 7) def division(a, b):
+   4833ce7a (Colaborator     2025-10-21 10:41:04 +0200 8)     return a / b
+   ```
+
+4. Visualiza los detalles del commit que introdujo el bug
+
+   ```
+   git show 76090567
+   commit 76090567bc0a7c60f50761fadef79e3a67716e80
+   Author: Bug Introducer <bug@example.com>
+   Date:   Tue Oct 21 10:39:33 2025 +0200
+
+       Commit C: bug en suma y añadir multiplicación
+   ```
+
+---
+
+### git bisect
+
+Herramienta de depuración que permite localizar el commit exacto donde se introdujo un bug, utilizando búsqueda binaria en el historial del repositorio.  
+Es especialmente útil en proyectos con muchos cambios, ya que agiliza la búsqueda y facilita la depuración colaborativa y automatizada.
+
+---
+
+**¿Cómo se usa?**
+
+1. **Inicia el proceso:**
+
+```
+git bisect start
+git bisect bad HEAD
+git bisect good <hash-del-commit-bueno>
+```
+
+2. **Itera entre commits:**
+
+```
+git bisect bad
+git bisect good
+```
+
+3. Finaliza y vuelve al estado original:
+
+```
+git bisect reset
+```
+
+---
+
+1. Descomprimir el proyecto `ejemplo-auditoria.zip`.
+2. Ejecuta el test para comprobar el bug
+
+   ```bash
+   python3 test.py
+   2 + 3 =  -1
+   2 * 3 =  6
+   6 / 3 =  2.0
+   ```
+
+---
+
+3. Consulta el historial de commits para identificar el último bueno y el actual
+
+   ```
+   git log --oneline
+   * cb49a8c (HEAD -> main) Commit G: mejora del test
+   * 05d0a61 Commit F: test para división
+   * 4833ce7 Commit E: añadir división
+   * c0f3051 Commit D: test para multiplicación
+   * 7609056 Commit C: bug en suma y añadir multiplicación
+   * 3e3ece8 Commit B: test para suma
+   * 3e94666 Commit A: suma correcta
+   ```
+
+4. Inicia el proceso de bisect
+
+   ```
+   git bisect start
+   git bisect bad HEAD
+   git bisect good 3e3ece8
+   ```
+
+---
+
+5. En cada iteración, ejecuta el test y marca el commit como bueno o malo:
+
+   ```
+   python3 test.py
+   git bisect good # git bisect bad
+   ```
+
+6. Cuando git bisect localice el commit problemático, finaliza el proceso y corrige el bug
+
+   ```
+   git bisect reset
+   ```
