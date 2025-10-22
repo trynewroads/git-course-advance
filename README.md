@@ -53,7 +53,6 @@ Este curso está diseñado para desarrolladores con experiencia en Git que desea
 - **Reflog:** recuperación de commits y ramas borradas.
 - **Git Bisect:** localizar commits problemáticos e integración con tests automáticos.
 - **Blame y log avanzado:** análisis de autores y cambios históricos.
-- Resolución de conflictos en PRs: uso de editores online vs locales.
 
 **Ejercicios sugeridos:**
 
