@@ -178,6 +178,74 @@ style: |
 
 ---
 
+## Hooks
+
+---
+
+### Hooks
+
+Son pequeños scripts que Git ejecuta automáticamente en determinados eventos. Sirven para automatizar comprobaciones y tareas locales (formateo, lint, tests rápidos) y, en servidores, para aplicar políticas obligatorias que no se pueden omitir desde el cliente.
+
+---
+
+### Hooks del lado cliente (comunes)
+
+- **pre-commit** - antes del commit
+
+  - Linters
+
+- **commit-msg** - validar el formato del mensaje
+
+  - Commitlint / Conventional Commits
+
+- **pre-push** - ejecutar checks antes de permitir un push
+
+  - Tests o build rápidos
+
+- **post-merge / post-checkout** - acciones tras actualizar la rama
+  - Instalar dependencias / regenerar artefactos
+
+---
+
+### Hooks del lado servidor
+
+- **pre-receive** - antes de actualizar cualquier ref del repositorio
+
+  - Validaciones globales y rechazar push (políticas, secrets)
+
+- **update** - una vez por cada ref que se está actualizando
+
+  - Validaciones específicas por rama
+
+- **post-receive** - después de que todas las refs hayan sido actualizadas
+  - Triggers: despliegues, notificaciones, CI jobs
+
+---
+
+### Configuración
+
+Los hooks nativos de Git se guardan en la carpeta `.git/hooks` de cada repositorio local. Por defecto, los hooks solo afectan al repositorio local y **no se versionan ni comparten**.
+
+---
+
+#### Cambiar el path
+
+Git permite cambiar el directorio de hooks con el parámetro de configuración. Esto permite versionar los hooks en una carpeta del proyecto (por ejemplo, ./hooks/)
+
+```bash
+git config core.hooksPath <ruta/nueva>
+```
+
+---
+
+#### Herramientas
+
+- **Husky**: Permite versionar, instalar y gestionar hooks fácilmente en proyectos modernos.
+
+- **Pre-commit**: es una herramienta multiplataforma para gestionar y versionar hooks de Git
+
+---
+
 ## Conventional Commits
 
 ---
@@ -238,21 +306,58 @@ Los breaking changes suelen disparar incremento mayor en versionado semántico (
 
 ---
 
-### Hooks
+#### Herramientas
+
+- **Commitlint**: Valida automáticamente que los mensajes de commit sigan una convención
+
+- **Commitizen**: Es una herramienta que guía al usuario para escribir mensajes de commit estructurados y válidos, siguiendo convenciones como Conventional Commits.
+
+Ambas herramientas pueden usarse en proyectos de cualquier lenguaje (Python, Java, Go, JavaScript, etc.), siempre que puedas instalar Node.js y npm para ejecutarlas.
 
 ---
 
-### Herramientas
-
-#### Commitizen
+## Github Actions
 
 ---
 
 ### Github Actions
 
+Es la plataforma de automatización de GitHub para crear workflows de CI/CD directamente en el repositorio.  
+Permite definir procesos automáticos (build, test, lint, deploy, análisis, etc.) usando archivos YAML en `.github/workflows/`.
+
 ---
 
-### Workflows
+### Conceptos clave
+
+- **Workflow:** Archivo YAML que define el proceso automatizado.
+- **Job:** Conjunto de pasos que se ejecutan en un runner.
+- **Step:** Acción individual dentro de un job (ejecutar comandos, usar acciones).
+- **Runner:** Entorno donde se ejecutan los jobs (Ubuntu, Windows, MacOS, self-hosted).
+- **Trigger:** Evento que inicia el workflow (`push`, `pull_request`, `schedule`, `workflow_dispatch`).
+
+---
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+```
 
 ---
 
@@ -260,8 +365,53 @@ Los breaking changes suelen disparar incremento mayor en versionado semántico (
 
 ---
 
-### Circle CI
+### Análisis Automático
 
-### SonnarQubne
+El análisis automático consiste en ejecutar herramientas que revisan el código fuente en busca de errores, malas prácticas, vulnerabilidades y problemas de calidad, de forma automatizada en la pipeline de CI/CD.
 
-### Snyk
+---
+
+### SonnarQube
+
+Es una plataforma de análisis estático de código que detecta automáticamente bugs, vulnerabilidades, code smells y deuda técnica en proyectos de software.
+
+Permite medir la calidad del código, generar informes detallados y establecer “quality gates” que bloquean el avance si no se cumplen los estándares definidos.
+
+SonarQube se integra fácilmente en pipelines de CI/CD y soporta múltiples lenguajes, ayudando a mantener proyectos más seguros, limpios y mantenibles.
+
+---
+
+### ¿Qué analiza SonarQube?
+
+- Bugs y errores potenciales
+- Vulnerabilidades de seguridad
+- Code smells (malas prácticas y mantenibilidad)
+- Cobertura de tests
+- Duplicidad de código
+- Complejidad ciclomática
+
+---
+
+#### Integración y uso
+
+- Integrable en CI/CD (GitHub Actions, GitLab CI, Jenkins, etc.)
+- Puede ejecutarse manualmente desde la app web
+- Permite configurar quality gates para bloquear merges si hay problemas críticos
+- Genera dashboards visuales y reportes históricos
+
+---
+
+### Ejemplo
+
+- Workflow.yml
+
+```
+- name: Official SonarQube Scan
+  uses: SonarSource/sonarqube-scan-action@v6.0.0
+  env:
+    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+<figure>
+<img src="../../img/sonarqube_rules.png" height="225px" alt="SonarQube"/>
+</figure>
