@@ -449,10 +449,10 @@ credentials.json
 - Contenido de un commit
 
   ```bash
-  git cat-file -p 2e06f2b8448649f16a3e82660cb57616a457cedd
-  tree 181cb51532a71991e1154b40b56e3b575b8d8e18
-  author Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
-  committer Arturo Silvelo <asilvelo@trynewroads.com> 1760527440 +0200
+  git cat-file -p  7ca1c8b30d0cbcf0d91edb2f379d6b7afa3eb2cc
+  tree 56c522739908ff6c35bd85bc9944bb8585ab8bef
+  author Arturo Silvelo <asilvelo@trynewroads.com> 1760604329 +0200
+  committer Arturo Silvelo <asilvelo@trynewroads.com> 1760604329 +0200
 
   Commit A: archivo1.txt
   ```
@@ -460,15 +460,15 @@ credentials.json
 - Contenido de un tree
 
   ```bash
-  git cat-file -p 181cb51532a71991e1154b40b56e3b575b8d8e18
-  100644 blob 0152d71fe5e5653f52e8772031fb073a2aa113ac	archivo1.txt
+  git cat-file -p  56c522739908ff6c35bd85bc9944bb8585ab8bef
+  100644 blob 7d249aa07f90adbb03a9084d962387de486f90b1	archivo1.txt
   ```
 
 - Contenido de un blob
 
   ```bash
-  git cat-file -p 0152d71fe5e5653f52e8772031fb073a2aa113ac
-  Hola Git
+  git cat-file -p 7d249aa07f90adbb03a9084d962387de486f90b1
+  Primer archivo
   ```
 
 ---
@@ -484,14 +484,14 @@ feature  main
 
 ```bash
 cat .git/refs/heads/feature
-f88435db6de38b34a264c7fc25a771ae54e934ee
+a2c810f361157b4b793790c28c2e6e90b47b03a4
 ```
 
 Tags funcionan de manera similar en .git/refs/tags/
 
 ```bash
 cat .git/refs/tags/v0.1
-53fc9ec5c5dafb7a28753e9b0ddea49f4f2f326d
+4e665c4ebd876630946055258c84816cd71a4b32
 ```
 
 ---
@@ -506,13 +506,15 @@ Historial completo de todos los movimientos de HEAD
 $cat .git/logs/HEAD
 # ó
 $git reflog
-ce455ac (HEAD -> main, tag: v0.1) HEAD@{0}: merge feature: Merge made by the 'ort' strategy.
-a57fb6f HEAD@{1}: commit: Commit D: cambio en main
-73fb1ea HEAD@{2}: checkout: moving from feature to main
-f88435d (feature) HEAD@{3}: commit: Commit C: feature.txt
-73fb1ea HEAD@{4}: checkout: moving from main to feature
-73fb1ea HEAD@{5}: commit: Commit B: archivo2.txt
-2e06f2b HEAD@{6}: commit (initial): Commit A: archivo1.txt
+5d54f8c (HEAD -> main) HEAD@{0}: checkout: moving from rama to main
+bc69376 (tag: v0.1) HEAD@{1}: checkout: moving from main to rama
+5d54f8c (HEAD -> main) HEAD@{2}: commit: Commit D: cambio en main
+bc69376 (tag: v0.1) HEAD@{3}: checkout: moving from feature to main
+a2c810f (feature) HEAD@{4}: commit: Commit C: feature.txt
+bc69376 (tag: v0.1) HEAD@{5}: checkout: moving from main to feature
+bc69376 (tag: v0.1) HEAD@{6}: commit: Commit B: archivo2.txt
+7ca1c8b HEAD@{7}: commit (initial): Commit A: archivo1.txt
+
 ```
 
 ---
