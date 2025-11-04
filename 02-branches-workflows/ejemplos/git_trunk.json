@@ -1,0 +1,48 @@
+{
+  "branches": {
+    "main": {
+      "remoteTrackingBranchID": null,
+      "remote": false,
+      "target": "C2",
+      "id": "main",
+      "type": "branch"
+    }
+  },
+  "commits": {
+    "C0": {
+      "type": "commit",
+      "parents": [],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:58:14 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Quick commit. Go Bears!",
+      "id": "C0",
+      "rootCommit": true
+    },
+    "C1": {
+      "type": "commit",
+      "parents": [
+        "C0"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:58:14 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Quick commit. Go Bears!",
+      "id": "C1"
+    },
+    "C2": {
+      "type": "commit",
+      "parents": [
+        "C1"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:58:43 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit T1: quick fix",
+      "id": "C2"
+    }
+  },
+  "tags": {},
+  "HEAD": {
+    "id": "HEAD",
+    "target": "main",
+    "type": "general ref"
+  }
+}

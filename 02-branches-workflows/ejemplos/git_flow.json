@@ -1,0 +1,172 @@
+{
+  "branches": {
+    "main": {
+      "remoteTrackingBranchID": null,
+      "remote": false,
+      "target": "C11",
+      "id": "main",
+      "type": "branch"
+    },
+    "develop": {
+      "remoteTrackingBranchID": null,
+      "remote": false,
+      "target": "C12",
+      "id": "develop",
+      "type": "branch"
+    },
+    "release/1": {
+      "remoteTrackingBranchID": null,
+      "remote": false,
+      "target": "C9",
+      "id": "release/1",
+      "type": "branch"
+    }
+  },
+  "commits": {
+    "C0": {
+      "type": "commit",
+      "parents": [],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:32:07 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Quick commit. Go Bears!",
+      "id": "C0",
+      "rootCommit": true
+    },
+    "C1": {
+      "type": "commit",
+      "parents": [
+        "C0"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:32:07 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Quick commit. Go Bears!",
+      "id": "C1"
+    },
+    "C2": {
+      "type": "commit",
+      "parents": [
+        "C1"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:36:24 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit B: feature A start",
+      "id": "C2"
+    },
+    "C3": {
+      "type": "commit",
+      "parents": [
+        "C2"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:36:28 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit C: feature A work",
+      "id": "C3"
+    },
+    "C4": {
+      "type": "commit",
+      "parents": [
+        "C1"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:36:39 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "WIP: bump develop to force merge commit",
+      "id": "C4"
+    },
+    "C5": {
+      "type": "commit",
+      "parents": [
+        "C4",
+        "C3"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:36:43 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Merge branch \"feature/A\" into branch \"develop\"",
+      "id": "C5"
+    },
+    "C6": {
+      "type": "commit",
+      "parents": [
+        "C5"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:37:01 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit D: feature B start",
+      "id": "C6"
+    },
+    "C7": {
+      "type": "commit",
+      "parents": [
+        "C6"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:37:04 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit E: feature B finish",
+      "id": "C7"
+    },
+    "C8": {
+      "type": "commit",
+      "parents": [
+        "C5"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:37:13 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "WIP: another bump on develop",
+      "id": "C8"
+    },
+    "C9": {
+      "type": "commit",
+      "parents": [
+        "C8",
+        "C7"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:37:17 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Merge branch \"feature/B\" into branch \"develop\"",
+      "id": "C9"
+    },
+    "C10": {
+      "type": "commit",
+      "parents": [
+        "C9"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:38:05 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Commit R1: release fixes",
+      "id": "C10"
+    },
+    "C11": {
+      "type": "commit",
+      "parents": [
+        "C1",
+        "C10"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:48:24 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Merge branch \"r/1.0\" into branch \"main\"",
+      "id": "C11"
+    },
+    "C12": {
+      "type": "commit",
+      "parents": [
+        "C9",
+        "C10"
+      ],
+      "author": "Peter Cottle",
+      "createTime": "Tue Nov 04 2025 10:48:32 GMT+0100 (Central European Standard Time)",
+      "commitMessage": "Merge branch \"r/1.0\" into branch \"develop\"",
+      "id": "C12"
+    }
+  },
+  "tags": {
+    "v1.0": {
+      "target": "C10",
+      "id": "v1.0",
+      "type": "tag"
+    }
+  },
+  "HEAD": {
+    "id": "HEAD",
+    "target": "develop",
+    "type": "general ref"
+  }
+}

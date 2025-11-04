@@ -441,6 +441,31 @@ Las contribuciones se integran mediante Pull Requests revisados por los mantened
 
 ---
 
+
+
+### ¿Cómo elegir un Workflow?
+
+
+- Equipo pequeño / despliegues frecuentes → Trunk Based Development  
+  - Pros: integración continua, menos conflictos, despliegue rápido.  
+  - Requisitos: CI robusto, feature flags, ramas muy cortas.
+
+- Equipo mediano / releases planificadas → GitHub Flow  
+  - Pros: simple, buen soporte PR, fácil automatizar.  
+  - Requisitos: PR + checks, revisión obligatoria.
+
+---
+
+- Equipo grande / múltiples versiones y hotfixes → Git Flow  
+  - Pros: control de releases y hotfixes, claro proceso de versionado.  
+  - Riesgos: más overhead, ramas largas → necesidad de merges periódicos.
+
+- Open Source / contribuciones externas → Forking Workflow  
+  - Pros: control de permisos, contribuciones seguras.  
+  - Requisitos: mantenimiento de upstream sincronizado, buenas instrucciones de contribución.
+
+---
+
 # Naming conventions
 
 ---
@@ -449,6 +474,8 @@ Las contribuciones se integran mediante Pull Requests revisados por los mantened
 
 Las **naming conventions** son reglas y patrones para nombrar ramas, commits y otros elementos en Git.  
 Su objetivo es facilitar la organización, la colaboración y la comprensión del historial del proyecto.
+
+> [Conventional Branch](https://conventional-branch.github.io/)
 
 ---
 
