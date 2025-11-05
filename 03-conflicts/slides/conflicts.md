@@ -291,6 +291,7 @@ En algunos casos, puedes indicar a Git que resuelva los conflictos priorizando l
 
 ---
 
+
 ### Herramientas gráficas y editores online
 
 - **Editores locales:**  
@@ -298,6 +299,18 @@ En algunos casos, puedes indicar a Git que resuelva los conflictos priorizando l
 
 - **Editores online:**  
   Plataformas como GitHub y GitLab ofrecen editores web para resolver conflictos directamente en la interfaz al fusionar Pull Requests.
+
+---
+
+## Mergetool — resolución visual de conflictos
+
+Un mergetool es una herramienta externa que Git puede ejecutar cuando surge un conflicto para facilitar la resolución de forma gráfica. Normalmente presenta la versión base (BASE), la versión local (LOCAL), la versión remota (REMOTE) y un panel con el resultado combinado (MERGED), de modo que puedes comparar, elegir y editar el resultado sin tocar manualmente las marcas <<<<>>>> en el archivo.
+
+---
+
+<figure>
+<img src="../../img/mergetool.png" alt="Merge Tool">
+</figure>
 
 ---
 
