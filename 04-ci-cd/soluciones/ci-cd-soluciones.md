@@ -298,6 +298,35 @@ exit 0
 
 ---
 
+
+
+
+## Ejercicio: Configurar GitHub Actions para un repositorio Python
+
+
+Crear un workflow de CI con GitHub Actions que ejecute formateo/lint y tests automáticamente en cada push y pull request.
+
+---
+
+1. Archivo de workflow en `.github/workflows/ci.yml` que:
+   - Se dispare en `push` y `pull_request` sobre ramas `main`.
+   - Use `actions/checkout@v4` y `actions/setup-python@v4`.
+   - Instale dependencias (`requirements.txt`) y herramientas `black`, `flake8`, `pytest`.
+   - Ejecute: `black --check .`, `flake8 .` y `pytest`.
+
+---
+
+Pasos sugeridos para realizarlo  
+
+1. Crear `.github/workflows/ci.yml` con los jobs y steps necesarios.  
+
+2. Comprobar en una rama feature: push → abrir PR → verificar ejecución en Actions.  
+
+3. Corregir un error intencionado (p. ej. mala formatación o test roto) y comprobar que el workflow falla.
+
+---
+
+
 ```yaml
 repos:
   - repo: https://github.com/psf/black
@@ -347,3 +376,68 @@ repos:
      ```bash
      git commit
      ```
+
+
+---
+
+```yaml
+     name: CI - lint & test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+```
+---
+
+```yaml
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            pip-${{ runner.os }}-py${{ matrix.python-version }}-
+
+```
+
+---
+
+```yaml
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install black flake8 pytest
+
+      - name: Run Black (check)
+        run: |
+          black --check .
+
+      - name: Run Flake8
+        run: |
+          flake8 .
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+```

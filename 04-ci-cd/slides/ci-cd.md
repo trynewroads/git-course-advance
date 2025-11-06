@@ -397,8 +397,11 @@ Los breaking changes suelen disparar incremento mayor en versionado semántico (
 ### Github Actions
 
 Es la plataforma de automatización de GitHub para crear workflows de CI/CD directamente en el repositorio.  
-Permite definir procesos automáticos (build, test, lint, deploy, análisis, etc.) usando archivos YAML en `.github/workflows/`.
+Permite definir procesos automáticos (build, test, lint, deploy, análisis, etc.) usando archivos YAML:
 
+
+- **GitHub Actions**: workflows en `.github/workflows/*.yml` dentro del repo.
+- **GitLab CI**: configuración en la raíz del repo en .`gitlab-ci.yml`.
 ---
 
 ### Conceptos clave
@@ -432,6 +435,73 @@ jobs:
       - name: Test
         run: npm test
 ```
+
+---
+
+
+#### Marketplace
+- El GitHub Actions Marketplace es el catálogo donde puedes encontrar acciones reutilizables (checkout, setup-*, cache, upload-artifact, etc.).
+- Ventajas:
+  - Reusar lógica probada.
+  - Acelerar creación de workflows.
+  - Comunidad y mantenimiento continuo.
+- Consejo: anclar versiones (ej. `actions/checkout@v4` o usar digest) para evitar romper pipelines.
+
+> [GitHub Actions Toolkit](https://github.com/actions/toolkit)
+
+---
+
+### actions/checkout@v4 vs "hacerlo a mano"
+
+
+<div class=container-column>
+<div class=small>
+
+```yaml
+name: Checkout with action
+on: [push]
+
+jobs:
+  checkout-only:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+```
+</div>
+<div class=small>
+
+```yaml
+name: Manual checkout
+on: [push]
+
+jobs:
+  manual-checkout:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Prepare git
+        run: |
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
+          # usar token para autenticar el fetch
+          git -c http.extraheader="AUTH: bearer $GITHUB_TOKEN" fetch --no-tags --prune --depth=1 origin ${{ github.ref }}
+          git checkout -f FETCH_HEAD
+          git submodule update --init --recursive
+```
+</div>
+</div>
+
+---
+
+#### Comparativa rápida con GitLab CI
+- GitLab usa `.gitlab-ci.yml` (un fichero principal), puedes `include` múltiples archivos y crear pipelines hijos.
+- Conceptos equivalentes: stages ~ jobs, script ~ steps.
+- Marketplace: GitLab tiene templates y shared runners, pero no un marketplace idéntico a GitHub Actions.
 
 ---
 
