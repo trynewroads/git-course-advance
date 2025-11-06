@@ -165,27 +165,65 @@ style: |
 
 ---
 
+- Consultar los logs para obtener los `commit id`
 
-```
-git bisect bad
-ea2bdab147f7c871ee239e813fb8eb19dbdef168 is the first bad commit
-commit ea2bdab147f7c871ee239e813fb8eb19dbdef168
-Author: Carol <carol@example.com>
-Date:   Wed Nov 5 10:58:01 2025 +0100
+  ```
+  git log --online
+  ```
 
-    Commit 6: Format file
 
- operaciones/suma.py          | 2 +-
- tests/test_multiplicacion.py | 4 +---
- 2 files changed, 2 insertions(+), 4 deletions(-)
-```
+- Iniciar el proceso de `bisect`
 
-```
-git blame operaciones/suma.py
-ccfdf5b9 (Alice 2025-11-05 10:45:24 +0100 1) def suma(a, b):
-ccfdf5b9 (Alice 2025-11-05 10:45:24 +0100 2)     """Suma a y b"""
-ea2bdab1 (Carol 2025-11-05 10:58:01 +0100 3)     return a - b
-```
+  ```
+  git bisect start
+  git bisect bad HEAD # último commit del repositorio
+  git bisect good 6ba9e0f # primer commit del repositorio
+  ```
+
+  ```
+  Bisecting: 19 revisions left to test after this (roughly 4 steps)
+  ```
+
+---
+
+- Comprobar en cada paso (roughly 4 steps) si la aplicación funciona
+
+  ```
+  pytest -v
+  ```
+
+- Avanzar al siguiente paso
+
+  ```
+  git bisect good
+  # ó
+  git bisect bad
+  ```
+
+---
+
+- Repetir proceso hasta el último paso
+
+  ```
+  git bisect bad
+  ea2bdab147f7c871ee239e813fb8eb19dbdef168 is the first bad commit
+  commit ea2bdab147f7c871ee239e813fb8eb19dbdef168
+  Author: Carol <carol@example.com>
+  Date:   Wed Nov 5 10:58:01 2025 +0100
+
+      Commit 6: Format file
+
+  operaciones/suma.py          | 2 +-
+  tests/test_multiplicacion.py | 4 +---
+  2 files changed, 2 insertions(+), 4 deletions(-)
+  ```
+
+  ```
+  git blame operaciones/suma.py
+  ccfdf5b9 (Alice 2025-11-05 10:45:24 +0100 1) def suma(a, b):
+  ccfdf5b9 (Alice 2025-11-05 10:45:24 +0100 2)     """Suma a y b"""
+  ea2bdab1 (Carol 2025-11-05 10:58:01 +0100 3)     return a - b
+  ```
 
 ---
 
