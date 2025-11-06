@@ -320,9 +320,10 @@ repos:
         pass_filenames: false
         stages: [commit-msg]
 ```
+---
 
    - Este archivo configura dos hooks:
-     - `flake8` para validar los archivos staged en el hook `pre-commit`.
+     - `black`, `flake8` para validar los archivos staged en el hook `pre-commit`.
      - `pytest` para ejecutar los tests en el hook `commit-msg`.
 
 ---
