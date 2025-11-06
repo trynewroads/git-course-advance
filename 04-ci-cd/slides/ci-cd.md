@@ -193,14 +193,67 @@ Son pequeños scripts que Git ejecuta automáticamente en determinados eventos. 
 - **pre-commit** - antes del commit
 
   - Linters
+    <div class=small>
+
+        ```bash
+          set -e
+
+          # Obtener archivos staged que terminan en .py
+          FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+
+          if [ -z "$FILES" ]; then
+            echo "No Python files to lint."
+            exit 0
+          fi
+
+          # Ejecutar Flake8 en los archivos staged
+          echo "Running Flake8..."
+          echo "$FILES" | xargs flake8
+
+          if [ $? -ne 0 ]; then
+            echo "Flake8 found issues. Commit aborted."
+            exit 1
+          fi
+
+          echo "Flake8 passed. Proceeding with commit."
+          exit 0
+        ```
+    </div>
+
+
+---
+
+- **pre-push** - ejecutar checks antes de permitir un push
+
+  - Tests, build rápidos, validar nombres de ramas.
+
+
+  ```bash
+    set -euo pipefail
+
+    BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+
+    PATTERN='^(feature|fix|hotfix|release)\/[a-z0-9._-]+(-[a-z0-9._-]+)*$|^(main|develop)$'
+
+    if [ -z "$BRANCH" ]; then
+      echo "ERROR: No se pudo determinar la rama actual. Abortando push." >&2
+      exit 1
+    fi
+
+    if ! echo "$BRANCH" | grep -Eq "$PATTERN"; then
+      echo "ERROR: Nombre de rama inválido: '$BRANCH'" >&2
+      echo "El nombre de la rama debe seguir el formato: <tipo>/<descripcion> o ser 'main' o 'develop'." >&2
+      exit 1
+    fi
+
+  ```
+
+---
 
 - **commit-msg** - validar el formato del mensaje
 
   - Commitlint / Conventional Commits
 
-- **pre-push** - ejecutar checks antes de permitir un push
-
-  - Tests o build rápidos
 
 - **post-merge / post-checkout** - acciones tras actualizar la rama
   - Instalar dependencias / regenerar artefactos
@@ -240,9 +293,31 @@ git config core.hooksPath <ruta/nueva>
 
 #### Herramientas
 
-- **Husky**: Permite versionar, instalar y gestionar hooks fácilmente en proyectos modernos.
+El uso de herramientas específicas para gestionar hooks es clave para evitar problemas de compatibilidad entre sistemas operativos y garantizar un flujo de trabajo uniforme:
 
-- **Pre-commit**: es una herramienta multiplataforma para gestionar y versionar hooks de Git
+- **Automatización**: Permiten ejecutar validaciones de código, formateo o chequeos de calidad de forma automática, independientemente del sistema operativo.
+
+- **Consistencia**: Aseguran que todos los desarrolladores sigan las mismas reglas y estándares, sin importar si trabajan en Windows, Linux o macOS.
+
+---
+
+- **Compatibilidad multiplataforma**: Resuelven diferencias en entornos de ejecución (como rutas, permisos o shells) al proporcionar una capa de abstracción que funciona de manera uniforme en cualquier sistema operativo.
+
+- **Integración con CI/CD**: Facilitan la conexión con pipelines automatizados, asegurando que las mismas reglas locales se apliquen en los entornos de integración y despliegue.
+
+---
+
+## Librerías Hooks
+
+- **[Husky](https://typicode.github.io/husky/)**: Permite versionar, instalar y gestionar hooks fácilmente en proyectos modernos.
+
+> [Script husky](https://github.com/typicode/husky/blob/main/index.js#L14)
+
+
+
+- **[Pre-commit](https://pre-commit.com/)**: es una herramienta multiplataforma para gestionar y versionar hooks de Git
+
+
 
 ---
 
@@ -308,11 +383,10 @@ Los breaking changes suelen disparar incremento mayor en versionado semántico (
 
 #### Herramientas
 
-- **Commitlint**: Valida automáticamente que los mensajes de commit sigan una convención
+- **[Commitlint](https://commitlint.js.org/guides/local-setup.html)**: Valida automáticamente que los mensajes de commit sigan una convención
 
-- **Commitizen**: Es una herramienta que guía al usuario para escribir mensajes de commit estructurados y válidos, siguiendo convenciones como Conventional Commits.
+- **[Commitizen](https://commitizen-tools.github.io/commitizen/tutorials/auto_check/)**: Es una herramienta que guía al usuario para escribir mensajes de commit estructurados y válidos, siguiendo convenciones como Conventional Commits.
 
-Ambas herramientas pueden usarse en proyectos de cualquier lenguaje (Python, Java, Go, JavaScript, etc.), siempre que puedas instalar Node.js y npm para ejecutarlas.
 
 ---
 
