@@ -380,6 +380,32 @@ repos:
 
 ---
 
+
+## Ejercicio: Configurar GitHub Actions para un repositorio Python
+
+
+Crear un workflow de CI con GitHub Actions que ejecute formateo/lint y tests automáticamente en cada push y pull request.
+
+---
+
+1. Archivo de workflow en `.github/workflows/ci.yml` que:
+   - Se dispare en `push` y `pull_request` sobre ramas `main`.
+   - Use `actions/checkout@v4` y `actions/setup-python@v4`.
+   - Instale dependencias (`requirements.txt`) y herramientas `black`, `flake8`, `pytest`.
+   - Ejecute: `black --check .`, `flake8 .` y `pytest`.
+
+---
+
+Pasos sugeridos para realizarlo  
+
+1. Crear `.github/workflows/ci.yml` con los jobs y steps necesarios.  
+
+2. Comprobar en una rama feature: push → abrir PR → verificar ejecución en Actions.  
+
+3. Corregir un error intencionado (p. ej. mala formatación o test roto) y comprobar que el workflow falla.
+
+---
+
 ```yaml
      name: CI - lint & test
 
